@@ -2,7 +2,10 @@ FROM debian:buster
 
 #RUN sed -i "s/deb.debian.org/mirrors.tuna.tsinghua.edu.cn/g" /etc/apt/sources.list
 
-RUN apt update && apt install wget gnupg2 -y
+RUN apt update && apt install wget curl gnupg2 -y
+
+# nodejs repo
+RUN curl -sL https://deb.nodesource.com/setup_11.x | bash -
 
 # dotnet core sdk repo
 RUN wget -qO- https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > microsoft.asc.gpg && \
@@ -16,6 +19,6 @@ RUN apt update && apt install apt-transport-https -y
 
 RUN apt update && apt install build-essential \
     g++ gcc python3.7 openjdk-11-jdk cmake make \
-    automake openssh-server git dotnet-sdk-3.0 -y
+    automake openssh-server git dotnet-sdk-3.0 nodejs -y
 
 CMD ["/bin/bash"]

@@ -5,7 +5,7 @@ FROM debian:buster
 RUN apt update && apt install wget curl gnupg2 -y
 
 # nodejs repo
-RUN curl -sL https://deb.nodesource.com/setup_11.x | bash -
+RUN curl -sL https://deb.nodesource.com/setup_12.x | bash -
 
 # dotnet core sdk repo
 RUN wget -qO- https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > microsoft.asc.gpg && \

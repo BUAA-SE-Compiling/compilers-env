@@ -21,6 +21,9 @@ RUN apt update && apt install build-essential \
     g++ gcc python3.7 openjdk-11-jdk cmake make \
     automake openssh-server git dotnet-sdk-3.0 nodejs -y
     
+# install maven
+RUN apt update && apt install maven -y
+
 # Rust nightly
 RUN curl https://sh.rustup.rs -sSf | sh -s -- --default-toolchain nightly -y
 

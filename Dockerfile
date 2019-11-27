@@ -24,6 +24,22 @@ RUN apt update && apt install build-essential \
 # install maven
 RUN apt update && apt install maven -y
 
+# golang
+RUN goRelSha256='692d17071736f74be04a72a06dab9cac1cd759377bd85316e52b2227604c004c' ; \
+    url="https://dl.google.com/go/go1.13.4.linux-amd64.tar.gz"; \
+    wget -O go.tgz "$url"; \
+	echo "${goRelSha256} *go.tgz" | sha256sum -c -; \
+	tar -C /usr/local -xzf go.tgz; \
+	rm go.tgz; \
+    export PATH="/usr/local/go/bin:$PATH"; \
+	go version
+
+ENV GOPATH /go
+ENV PATH $GOPATH/bin:/usr/local/go/bin:$PATH
+
+RUN mkdir -p "$GOPATH/src" "$GOPATH/bin" && chmod -R 777 "$GOPATH"
+RUN go env -w GOPROXY=https://goproxy.cn,direct
+
 # Rust nightly
 RUN curl https://sh.rustup.rs -sSf | sh -s -- --default-toolchain nightly -y
 
